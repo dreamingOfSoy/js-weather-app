@@ -1,0 +1,236 @@
+*,
+*::before,
+*::after {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+*:focus {
+  outline: none;
+  box-shadow: 0 0 0 0.4rem #61abfc;
+}
+
+html {
+  font-size: 62.5%;
+  background-color: #61abfc;
+}
+
+body {
+  font-family: 'Roboto', sans-serif;
+  position: relative;
+}
+
+span {
+  font-size: 1.4rem;
+  color: #8b8b8b;
+  text-align: center;
+}
+
+.btn {
+  padding: 0.8rem;
+  background-color: #4fa2fa;
+  border: none;
+  border-radius: 0.4rem;
+  color: white;
+}
+
+.container,
+.mini-section {
+  margin: 0 auto;
+  padding-top: 6rem;
+  width: 30rem;
+}
+
+.card {
+  border-radius: 0.4rem;
+  background-color: white;
+}
+
+.header {
+  padding: 1rem 0 1rem 0;
+  border-bottom: 0.05rem solid #8b8b8b;
+}
+
+.header-title {
+  color: #61abfc;
+  margin-left: 1rem;
+  font-size: 2rem;
+  cursor: pointer;
+}
+
+.input-section {
+  padding: 2rem;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 1rem;
+}
+
+.input {
+  padding: 0.8rem;
+  text-align: center;
+  color: rgb(0, 0, 0);
+  border: 0.05rem solid #8b8b8b;
+  border-radius: 0.4rem;
+  font-family: inherit;
+}
+
+::placeholder {
+  color: #8b8b8b;
+}
+
+.input-seperator {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.input-seperator::before,
+.input-seperator::after {
+  content: '';
+  height: 0.06rem;
+  width: 100%;
+  background-color: #8b8b8b;
+}
+
+.main-results {
+  margin-bottom: 2rem;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+}
+
+.day {
+  margin-bottom: 1rem;
+}
+
+.icon {
+  font-size: 8rem;
+  margin-bottom: 1rem;
+}
+
+.temp {
+  font-size: 4.4rem;
+  font-weight: 400;
+}
+
+.temp-num {
+  font-size: 4.4rem;
+  font-weight: 800;
+  color: black;
+}
+
+.description {
+  font-size: 1.6rem;
+}
+
+.location {
+  font-size: 1.6rem;
+}
+
+.country-tag {
+  margin-left: 0.4rem;
+  padding: 0.4rem;
+  position: absolute;
+  font-size: 0.6rem;
+  background-color: #f6d322;
+  border-radius: 50%;
+  color: white;
+}
+
+.footer-main-results {
+  border-top: 0.05rem solid #8b8b8b;
+
+  display: flex;
+  justify-content: space-between;
+}
+
+.feels-like-section {
+  border-right: 0.05rem solid #8b8b8b;
+}
+
+.feels-like-section,
+.humidity-section {
+  width: 50%;
+  padding: 1.2rem;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.thermometer-outline,
+.water-outline {
+  font-size: 2.4rem;
+}
+
+.footer-temp {
+  font-size: 1.6rem;
+  font-weight: 600;
+}
+
+.mini-section {
+  padding-top: 1rem;
+  margin-bottom: 6rem;
+}
+
+.minis {
+  display: flex;
+  gap: 2rem;
+}
+
+.mini {
+  width: 100%;
+  padding: 1rem;
+  background-color: white;
+  border-radius: 0.4rem;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.icon-mini {
+  font-size: 3rem;
+  margin-bottom: 1rem;
+}
+
+.temp-num-mini {
+  color: black;
+  font-weight: 600;
+}
+
+.temp-mini {
+  font-weight: 300;
+}
+
+.title-mini {
+  margin-bottom: 0.8rem;
+  font-size: 0.9rem;
+}
+
+/*
+Helper classes
+*/
+
+.nodisplay {
+  display: none;
+}
+
+.fade-in {
+  animation: fadein 2s;
+}
+
+@keyframes fadein {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
+}
