@@ -4,6 +4,7 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script defer src="config.js"></script>
     <script defer src="script.js"></script>
     <link rel="stylesheet" href="/css/style.css" />
     <link rel="stylesheet" href="/css/weather-icons.css" />
@@ -21,8 +22,10 @@
 
         <section class="input-section">
           <input class="input" placeholder="Enter City Name" />
+          <span class="error-search nodisplay"></span>
           <span class="input-seperator">Or</span>
           <button class="btn">Get Device Location</button>
+          <span class="error-geo nodisplay"></span>
         </section>
 
         <section class="results-section">

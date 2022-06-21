@@ -1,10 +1,13 @@
 'use strict';
 
+const input = document.querySelector('.input');
 const resultsSection = document.querySelector('.results-section');
 const miniSection = document.querySelector('.minis');
 const backArrow = document.querySelector('.arrow');
 const headerTitle = document.querySelector('.header-title');
 const btn = document.querySelector('.btn');
+const errorMessageSearch = document.querySelector('.error-search');
+const errorMessageGeo = document.querySelector('.error-geo');
 
 const state = {
   query: '',
@@ -41,7 +44,7 @@ const filterDates = function (allDates, curDate) {
 };
 
 const generateHTML = function (el) {
-  const days = ['Sun', 'Mon', 'Tues', 'Wed', 'Thrus', 'Fri', 'Sat'];
+  const days = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
   const date = new Date(el.timeStamp * 1000);
 
   return `
@@ -58,10 +61,20 @@ const generateHTML = function (el) {
 };
 
 const closeWindow = function () {
+  input.value = '';
   resultsSection.innerHTML = '';
   miniSection.innerHTML = '';
   state.futureInfo = [];
   backArrow.classList.add('nodisplay');
+  errorMessageSearch.classList.add('nodisplay');
+  errorMessageSearch.textContent = '';
+  errorMessageGeo.classList.add('nodisplay');
+  errorMessageGeo.textContent = '';
+};
+
+const displayError = function (el, err) {
+  el.classList.remove('nodisplay');
+  el.textContent = err.message;
 };
 
 const success = async function (pos) {
@@ -72,14 +85,20 @@ const success = async function (pos) {
 };
 
 const failure = function (err) {
-  console.warn(`ERROR(${err.code}): ${err.message}`);
+  try {
+    if (err) throw new Error('Unable to get device location!');
+  } catch (err) {
+    backArrow.classList.remove('nodisplay');
+    displayError(errorMessageGeo, err);
+  }
 };
 
 const getGeoCoords = async function (city) {
   try {
     const result = await fetch(
-      `http://api.openweathermap.org/geo/1.0/direct?q=${city}&limit=1&appid=${KEY}`
+      `http://api.openweathermap.org/geo/1.0/direct?q=${city}&limit=1&appid=${API_KEY}`
     );
+
     const data = await result.json();
 
     state.cityInfo = {
@@ -91,24 +110,29 @@ const getGeoCoords = async function (city) {
       return [data.lat, data.lon];
     });
   } catch (err) {
-    console.log(err);
+    throw new Error('No city found, please search again!');
   }
 };
 
 const returnData = async function (lat, lon) {
-  const result = await fetch(
-    `http://api.openweathermap.org/data/2.5/forecast?&lat=${lat}&lon=${lon}&appid=${KEY}`
-  );
+  try {
+    const result = await fetch(
+      `http://api.openweathermap.org/data/2.5/forecast?&lat=${lat}&lon=${lon}&appid=${API_KEY}`
+    );
 
-  const data = await result.json();
+    const data = await result.json();
 
-  return data;
+    return data;
+  } catch (err) {
+    displaySearch(errorMessageGeo);
+  }
 };
 
 const citySearch = async function (city) {
   try {
     closeWindow();
     backArrow.classList.remove('nodisplay');
+    errorMessageSearch.classList.add('nodisplay');
 
     const [lat, lon] = await getGeoCoords(city);
 
@@ -199,11 +223,9 @@ const citySearch = async function (city) {
 
     input.value = '';
   } catch (err) {
-    console.log(err.message);
+    displayError(errorMessageSearch, err);
   }
 };
-
-const input = document.querySelector('.input');
 
 const pressEnterKey = e => {
   if (e.keyCode === 13) {
@@ -211,10 +233,10 @@ const pressEnterKey = e => {
   }
 };
 
-input.addEventListener('keydown', pressEnterKey);
+// Event Handlers
 
+input.addEventListener('keydown', pressEnterKey);
 btn.addEventListener('click', function () {
   navigator.geolocation.getCurrentPosition(success, failure);
 });
-
 headerTitle.addEventListener('click', closeWindow);
